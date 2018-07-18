@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="clipboard.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btn_generatepass").click(function() {
+			//generatepass("/generatepass");
+			$.ajax({
+				type : "GET",
+				url : "/generatepass",
+				success : function(pass) {
+					$("#pass_text").val(pass);
+				},
+				error : function() {
+					alert("网络异常");
+				}
+			});
+		});
+	});
+
+	function generatepass(url) {
+		$.ajax({
+			type : "GET",
+			url : url,
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<input id="pass_text" type="text" value="" disabled="disabled">
+	<button id="btn_generatepass">生成随机密码</button>
+	<button id="btn_copy" class="btn" data-clipboard-target="#pass_text">复制密码</button>
+</body>
+</html>
